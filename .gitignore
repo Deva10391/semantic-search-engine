@@ -1,0 +1,10 @@
+__pycache__/
+node_modules/
+package.json
+package-lock.json
+tsconfig.json
+tsconfig.node.json
+tsconfig.app.json
+vite.config.js
+eslint.config.js
+hit_model

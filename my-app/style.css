@@ -1,0 +1,19 @@
+div, button, input {
+    font-size: 20px;
+}
+
+.show_search{
+    transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.show_search:hover{
+    transform: scale(1.0075);
+    background-color:rgba(255, 235, 205, 0.5);
+}
+
+button.sr {
+    /* width: 37.5px; */
+    height: 37.5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
