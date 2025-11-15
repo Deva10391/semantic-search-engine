@@ -40,6 +40,7 @@ function Show() {
                 ) : searches.length > 0 ? (
                     <>
                     <hr />
+                    {console.log(searches)}
                     {searches.map((search, key) => 
                         <ShowSearch key={key} search={search}/>
                     )}

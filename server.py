@@ -7,7 +7,7 @@ import pandas as pd
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-# from sentence_transformers import SentenceTransformer, util
+from sentence_transformers import SentenceTransformer, util
 
 app = FastAPI()
 
@@ -39,21 +39,21 @@ filtered = [line.strip() for line in lines if any(ch in allowed for ch in line)]
 df = pd.DataFrame(filtered, columns=['text'])
 text = df['text'].apply(removal)
 
-# model = SentenceTransformer('./hit_model')
-# def get_hits(text, query, model=model):
-#     text_embs = model.encode(
-#         text,
-#         convert_to_tensor=True
-#     )
-#     vec = model.encode(
-#         query,
-#         convert_to_tensor=True,
-#     )
-#     return util.semantic_search(
-#         vec,
-#         text_embs,
-#         top_k=3,
-#     )
+model = SentenceTransformer('./hit_model')
+def get_hits(query, text=text, model=model):
+    text_embs = model.encode(
+        text,
+        convert_to_tensor=True
+    )
+    vec = model.encode(
+        query,
+        convert_to_tensor=True,
+    )
+    return util.semantic_search(
+        vec,
+        text_embs,
+        top_k=3,
+    )
 
 class Req(BaseModel):
     search: str
@@ -67,9 +67,13 @@ def read_root():
 
 @app.post('/get_search_results')
 def semantic_search(search_req: Req):
-    result = search_req.search
+    # result = search_req.search
+    hits = get_hits(search_req.search)[0]
+    result = []
+    for h in hits:
+        result.append(text[h['corpus_id']])
     return {
-        "message": [f"Hello\n{result} !"]
+        "message": result
     }
 
 # cd "semantic search engine"

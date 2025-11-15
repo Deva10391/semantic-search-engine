@@ -22,6 +22,7 @@ function TakeSearch() {
             .then(res => res.json())
             .then((data) => {
                 setSearchData("");
+                console.log(data.message);
                 dispatch(changeSearchResults(data.message));
             })
             .catch(err => console.error('Error:', err));
@@ -45,6 +46,7 @@ function TakeSearch() {
             style={{
                 display: "flex",
                 flexDirection: "row",
+                justifyContent: "center",
             }}
             >
                 <button
@@ -59,7 +61,7 @@ function TakeSearch() {
                 onChange={changeSearch}
                 placeholder="Search"
                 style={{
-                    width: "500px",
+                    width: "100%",
                     height: "15px",
                     padding: "10px",
                     borderRadius: "5px",
