@@ -1,6 +1,25 @@
 import fs from 'fs';
 import { spawn } from 'child_process';
 
+const py = spawn('python', ['./prediction/predict.py']);
+const callbacks = [];
+let res = '';
+py.stdout.on('data', (data) => {
+    res += data.toString();
+    let lines = res.split('\n');
+    res = lines.pop();
+    lines.forEach(line => {
+        if(callbacks.length > 0){
+            const cb = callbacks.shift();
+            try {cb.resolve(JSON.parse(line));}
+            catch (err) {cb.reject(err);}
+        }
+    })
+});
+py.stderr.on('data', (err) => {
+    console.error(err.toString());
+});
+
 export function load_all() {
     const data = fs.readFileSync('./prediction/data.csv', 'utf-8')
     .split('\n')
@@ -23,27 +42,7 @@ export function load_all() {
 
 export function search(opt) {
     return new Promise((resolve, reject) => {
-        const py = spawn('python', ['./prediction/predict.py', opt]);
-
-        let res = '';
-        py.stdout.on('data', (data) => {
-            console.log(`stdout: ${data}`);
-            res += data.toString();
-        });
-
-        py.stderr.on('data', (err) => {
-            console.error(err.toString());
-        });
-
-        py.on('close', (code) => {
-            if (code !== 0) {
-                reject(code);
-            };
-            try {
-                resolve(JSON.parse(res));
-            } catch (err) {
-                reject(err);
-            }
-        });
+        callbacks.push({resolve, reject});
+        py.stdin.write(opt + '\n');
     })
 }

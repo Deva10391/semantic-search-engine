@@ -13,16 +13,21 @@ data = pd.read_csv(f"{open_from}/data.csv")
 indices = faiss.IndexFlatL2(embs.shape[1])
 indices.add(embs)
 
-def find_match(state):
+def find_match(state, n=5):
     emb = model.encode([state])
-    _, idx = indices.search(emb, 1)
-    res = data.iloc[idx[0][0]]
-    return {
-        'Job Title': res['Job Title'],
-        'Job Description': res['Job Description'],
-    }
+    _, idx = indices.search(emb, 5)
+    res = []
+    for i in idx[0]:
+        r = data.iloc[i]
+        res.append({
+            'Job Title': r['Job Title'],
+            'Job Description': r['Job Description'],
+        })
+    return res
 
 if __name__ == "__main__":
-    res = find_match(sys.argv[1])
-    print(json.dumps(res))
-    sys.stdout.flush()
+    for line in sys.stdin:
+        search_val = line.strip()
+        if not search_val: continue
+        res = find_match(search_val)
+        print(json.dumps(res), flush=True)

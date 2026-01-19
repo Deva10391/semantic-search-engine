@@ -19,9 +19,8 @@ app.get('/load_all/', (req, res) => {
 });
 
 app.post('/search/', async (req, res) => {
-    const opt = req.body.search;
+    const opt = req.body.toSearch;
     const search_res = await search(opt);
-    console.log(`searches: ${search_res}`);
     res.status(200).json({
         data: search_res,
     }); 

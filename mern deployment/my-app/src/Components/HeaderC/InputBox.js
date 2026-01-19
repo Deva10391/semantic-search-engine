@@ -14,7 +14,7 @@ export default function InputBox () {
             body: JSON.stringify({toSearch}),
         });
         const res = await data.json();
-        dispatch(set_search_opts([res.data]));
+        dispatch(set_search_opts(res.data));
     };
     
     return (
