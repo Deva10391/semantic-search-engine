@@ -6,7 +6,9 @@ export default function Reload(){
     const dispatch = useDispatch();
 
     const reload_func = async() => {
-        const res = await fetch('http://localhost:3000/load_all/');
+        // const res = await fetch('http://localhost:3000/load_all/');
+        const res = await fetch('http://127.0.0.1:8000/load_all/'); // python
+
         const val = await res.json();
         dispatch(set_search_opts(val.data));
     };

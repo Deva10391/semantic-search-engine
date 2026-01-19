@@ -8,7 +8,8 @@ export default function InputBox () {
     const dispatch = useDispatch();
 
     const do_a_search = async () => {
-        const data = await fetch('http://localhost:3000/search/',{
+        // const data = await fetch('http://localhost:3000/search/', {
+        const data = await fetch('http://127.0.0.1:8000/search/', { // python
             method: 'POST',
             headers: { 'Content-Type': "application/json"},
             body: JSON.stringify({toSearch}),
