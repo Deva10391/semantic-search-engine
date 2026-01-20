@@ -3,5 +3,9 @@
     "cors": "^2.8.5",
     "express": "^5.2.1"
   },
-  "type": "module"
+  "type": "module",
+  "scripts": {
+    "py_dev": "uvicorn python_server:app --reload",
+    "dev": "node server.js"
+  }
 }
