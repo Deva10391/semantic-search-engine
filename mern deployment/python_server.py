@@ -28,7 +28,7 @@ def load_all():
 
 def find_match(state, n=5):
     emb = model.encode([state])
-    _, idx = indices.search(emb, 5)
+    _, idx = indices.search(emb, n)
     res = []
     for i in idx[0]:
         r = data.iloc[i]

@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import searchReducer from '../Store/Slice'
+import { searchReducer, apiReducer } from '../Store/Slice'
 
 export default configureStore({
   reducer: {
     searches: searchReducer,
+    api: apiReducer,
   },
 })
