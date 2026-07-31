@@ -2,6 +2,6 @@
 /package-lock.json
 /node_modules
 *.gitignore
-*__pycache__node_modules/
+*__pycache__
 build/
 dist/
