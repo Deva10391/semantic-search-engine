@@ -19,7 +19,7 @@ export const searchSlice = createSlice({
 export const apiSlice = createSlice({
   name: 'apis',
   initialState: {
-    // port: 'http://localhost:3000',
+    // port: 'http://localhost:3000', // node
     port: 'http://127.0.0.1:8000', // python
   }
 })

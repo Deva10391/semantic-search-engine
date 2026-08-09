@@ -1,6 +1,4 @@
-/package.json
-/package-lock.json
-/node_modules
+*node_modules
 *.gitignore
 *__pycache__
 build/
