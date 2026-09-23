@@ -42,15 +42,27 @@ pip install fastapi uvicorn pydantic kagglehub pandas numpy sentence-transformer
 4. The trained model is served through `python_server.py` using FastAPI.
 5. Start the API:
 ```bash
-uvicorn python_server:app --reload
-```
-The FastAPI backend runs on `http://127.0.0.1:8000`.
+   cd "mern deployment"
+   npm run dev
+   ```
 
-### Frontend
+   or
 
-1. `cd my-app`
-2. `npm install`
-3. `npm start` — runs on `localhost:3000`, calls the backend for job search.
+   ```bash
+   cd "mern deployment"
+   uvicorn python_server:app --reload
+   ```
+
+   The FastAPI backend runs on `http://127.0.0.1:8000`.
+
+**Frontend**
+
+   ```bash
+   cd "mern deployment/my-app"
+   npm install
+   npm start
+   ```
+it runs on `localhost:3000`, calls the backend for job search.
 4. In `my-app/src/Redux/Slice.js`, comment out the Node backend port and uncomment/use the Python FastAPI port (`8000`).
 
 ### Production
